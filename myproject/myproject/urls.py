@@ -1,7 +1,7 @@
 """
 URL configuration for myproject project.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
+The `urlpatterns` list routes URLs to view. For more information please see:
     https://docs.djangoproject.com/en/6.0/topics/http/urls/
 Examples:
 Function views
@@ -17,14 +17,12 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from myapp import views
+from myapp.views import home, about, shoping, form
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", views.home, name="home"),
-    path("about/", views.about, name="about"),
-    path("login/", views.login, name="login"),
-    path("signup/", views.signup, name="signup"),
-    path("dashboard/", views.dashboard, name="dashboard"),
-    path("logout/", views.logout, name="logout"),
+    path("", home, name="home"),
+    path("about/", about, name="about"),
+    path("shoping/", shoping, name="shoping"),
+    path("form/", form, name="form"),
 ]

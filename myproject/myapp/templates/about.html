@@ -10,120 +10,118 @@
             padding: 0;
             box-sizing: border-box;
         }
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            padding: 20px;
+
+        :root {
+            --color-primary: #333;
+            --color-secondary: #555;
+            --color-border: #ddd;
+            --color-bg-light: #f0f0f0;
+            --color-bg-white: #fff;
+            --color-bg-hover: #e0e0e0;
+            --font-family: Arial, sans-serif;
+            --spacing-xs: 8px;
+            --spacing-sm: 15px;
+            --spacing-md: 20px;
+            --spacing-lg: 30px;
+            --spacing-xl: 40px;
+            --border-radius: 4px;
         }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--color-bg-light);
+            padding: var(--spacing-md);
+        }
+
         .navbar {
-            background-color: #fff;
-            padding: 20px;
-            margin-bottom: 30px;
-            border-bottom: 1px solid #ddd;
+            background-color: var(--color-bg-white);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--color-border);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-radius: var(--border-radius);
         }
+
         .navbar h1 {
             font-size: 24px;
-            color: #333;
+            color: var(--color-primary);
         }
+
         .nav-links {
             display: flex;
-            gap: 15px;
+            gap: var(--spacing-sm);
         }
+
         .nav-links a {
-            color: #333;
+            color: var(--color-primary);
             text-decoration: none;
-            padding: 8px 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            transition: background-color 0.3s;
         }
+
         .nav-links a:hover {
-            background-color: #e0e0e0;
+            background-color: var(--color-bg-hover);
         }
+
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
+            background-color: var(--color-bg-white);
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--color-border);
         }
+
         h2 {
-            color: #333;
-            margin-bottom: 20px;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-md);
+            font-size: 28px;
         }
+
         p {
-            color: #555;
+            color: var(--color-secondary);
             line-height: 1.6;
-            margin-bottom: 15px;
+            margin-bottom: var(--spacing-md);
         }
-        .features {
+
+        .info-box {
             background-color: #f9f9f9;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-top: 20px;
+            padding: var(--spacing-lg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            margin-top: var(--spacing-lg);
         }
-        .features h3 {
-            color: #333;
-            margin-bottom: 15px;
-        }
-        .features ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        .features li {
-            color: #555;
-            padding: 8px 0;
-            border-bottom: 1px solid #ddd;
-        }
-        .features li:last-child {
-            border-bottom: none;
-        }
-        .features li:before {
-            content: "• ";
-            margin-right: 10px;
+
+        .info-box h3 {
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-md);
         }
     </style>
 </head>
 <body>
     <div class="navbar">
-        <h1>Django Auth</h1>
+        <h1>My App</h1>
         <div class="nav-links">
             <a href="{% url 'home' %}">Home</a>
             <a href="{% url 'about' %}">About</a>
-            {% if user.is_authenticated %}
-                <a href="{% url 'dashboard' %}">Dashboard</a>
-                <a href="{% url 'logout' %}">Logout</a>
-            {% else %}
-                <a href="{% url 'login' %}">Login</a>
-                <a href="{% url 'signup' %}">Sign Up</a>
-            {% endif %}
+            <a href="{% url 'shoping' %}">Shoping</a>
+            <a href="{% url 'form' %}">Form</a>
         </div>
     </div>
 
     <div class="container">
-        <h2>About Django Auth System</h2>
-        <p>This is a simple authentication system built with Django.</p>
-        <p>The system uses Django's built-in User model and authentication framework.</p>
+        <h2>{{ title }}</h2>
+        <p>{{ content }}</p>
 
-        <div class="features">
-            <h3>Features:</h3>
-            <ul>
-                <li>User Registration with email validation</li>
-                <li>Secure Password Hashing</li>
-                <li>User Login with Session Management</li>
-                <li>Protected Dashboard for logged-in users</li>
-                <li>User Logout functionality</li>
-                <li>Password confirmation validation</li>
-                <li>Duplicate email prevention</li>
-                <li>CSRF Protection</li>
-            </ul>
+        <div class="info-box">
+            <h3>Application Info</h3>
+            <p>Built with Django 6.0.3, this application demonstrates a clean and simple web structure.</p>
+            <p>The application features a home page with a contact form and this about page with navigation links.</p>
         </div>
-
-        <p style="margin-top: 20px; color: #999; font-size: 14px;">Built with Django 6.0.3 & SQLite3</p>
     </div>
 </body>
 </html>

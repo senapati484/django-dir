@@ -1,57 +1,53 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.contrib.auth.decorators import login_required
-from .forms import SignUpForm, LoginForm
+from django.shortcuts import render
+from .forms import BasicForm
 
-# Home Page
+# Home Page with Form
 def home(request):
-    return render(request, "home.html")
+    data = {
+        "title": "Welcome to Our Django App 👋",
+        "content": "This is the home page of our Django application. Here you can find the latest updates and features.",
+    }
+    return render(request, "home.html", data)
 
 # About Page
 def about(request):
-    return render(request, "about.html")
+    data = {
+        "title": "About Us",
+        "content": "This is the about page of our Django application. Here you can find information about our mission, vision, and team."
+    }
+    return render(request, "about.html", data)
 
-# Signup View - Handle both GET (show form) and POST (save to database)
-def signup(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
+def shoping(request):
+    data = {
+        "title": "Shoping Page",
+        "content": "Welcome to our shoping page! Here you can find a variety of products.",
+        "items": [
+            {
+                "name": "Product 1",
+                "price": "$10",
+                "image": "https://picsum.photos/200?random=1"
+            },
+            {
+                "name": "Product 2",
+                "price": "$20",
+                "image": "https://picsum.photos/200?random=2"
+            },
+            {
+                "name": "Product 3",
+                "price": "$30",
+                "image": "https://picsum.photos/200?random=3"
+            },
+        ]
+    }
+    return render(request, "shoping.html", data)
+
+def form(request):
+    if request.method == "POST":
+        form = BasicForm(request.POST)
         if form.is_valid():
-            # This saves the user to the database
-            user = form.save()
-            # Automatically log in the user after signup
-            auth_login(request, user)
-            return redirect('dashboard')  # Redirect to dashboard after signup
+            # Process the form data
+            pass
     else:
-        form = SignUpForm()
-    
-    return render(request, 'auth/signup.html', {'form': form})
+        form = BasicForm()
 
-# Login View - Handle user authentication
-def login(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            # Check if username and password are correct
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                # Create a session for the user
-                auth_login(request, user)
-                return redirect('dashboard')  # Redirect to dashboard
-            else:
-                form.add_error(None, 'Invalid username or password!')
-    else:
-        form = LoginForm()
-    
-    return render(request, 'auth/login.html', {'form': form})
-
-# Dashboard View - Only accessible to logged-in users
-@login_required(login_url='login')
-def dashboard(request):
-    return render(request, 'dashboard.html', {'user': request.user})
-
-# Logout View
-def logout(request):
-    auth_logout(request)
-    return redirect('home')
+    return render(request, "form.html", {"form": form})

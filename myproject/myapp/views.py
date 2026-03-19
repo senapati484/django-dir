@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from .forms import BasicForm
+from .models import Student, Items
 
 # Home Page with Form
 def home(request):
+    students = Student.objects.all()
     data = {
         "title": "Welcome to Our Django App 👋",
         "content": "This is the home page of our Django application. Here you can find the latest updates and features.",
+        "students": students
     }
     return render(request, "home.html", data)
 
@@ -18,26 +21,11 @@ def about(request):
     return render(request, "about.html", data)
 
 def shoping(request):
+    items_list = Items.objects.all()
     data = {
         "title": "Shoping Page",
         "content": "Welcome to our shoping page! Here you can find a variety of products.",
-        "items": [
-            {
-                "name": "Product 1",
-                "price": "$10",
-                "image": "https://picsum.photos/200?random=1"
-            },
-            {
-                "name": "Product 2",
-                "price": "$20",
-                "image": "https://picsum.photos/200?random=2"
-            },
-            {
-                "name": "Product 3",
-                "price": "$30",
-                "image": "https://picsum.photos/200?random=3"
-            },
-        ]
+        "items": items_list
     }
     return render(request, "shoping.html", data)
 

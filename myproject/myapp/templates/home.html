@@ -154,6 +154,24 @@
         <div class="container">
             <h2>{{ title }}</h2>
             <p>{{ content }}</p>
+
+            {% if students %}
+            <div class="info-box">
+                <h3>All Students</h3>
+
+                {% for student in students %}
+                <div
+                    style="margin-bottom: 10px; padding:10px; border-bottom:1px solid #ddd;">
+                    <p><strong>Name:</strong> {{ student.name }}</p>
+                    <p><strong>Age:</strong> {{ student.age }}</p>
+                    <p><strong>Email:</strong> {{ student.email }}</p>
+                </div>
+                {% endfor %}
+
+            </div>
+            {% else %}
+            <p>No students found.</p>
+            {% endif %}
         </div>
     </body>
 </html>

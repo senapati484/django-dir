@@ -1,0 +1,46 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+<form method="post" action="/update/{{ task.id }}/" style="
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:30px;
+">
+    <h2 style="color:#333;">Update Task</h2>
+    {% csrf_token %}
+
+    <input 
+        type="text" 
+        name="title" 
+        value="{{ task.title }}" 
+        required
+        style="padding:10px; border:1px solid #ddd;"
+    >
+
+    <textarea 
+        name="description"
+        style="padding:10px; border:1px solid #ddd;"
+    >{{ task.description }}</textarea>
+
+    <label style="font-size:14px;">
+        <input type="checkbox" name="completed"
+            {% if task.completed %}checked{% endif %}>
+        Mark as completed
+    </label>
+
+    <button type="submit" style="
+        padding:10px;
+        background:#333;
+        color:white;
+        border:none;
+        cursor:pointer;
+    ">
+        Update Task
+    </button>
+
+    <a href="/" style="text-align:center; color:#555;">Cancel</a>
+</form>
+
+{% endblock %}

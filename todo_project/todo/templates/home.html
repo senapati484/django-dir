@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form method="post" action="{% url 'add_task' %}" style="
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:30px;
+">
+    <h2 style="color:#333;">Add Task</h2>
+    {% csrf_token %}
+
+    <input type="text" name="title" placeholder="Task Title" required
+        style="padding:10px; border:1px solid #ddd; border-radius: 10px 0 10px 0;">
+
+    <textarea name="description" placeholder="Task Description"
+        style="padding:10px; border:1px solid #ddd; border-radius: 10px 0 10px 0;"></textarea>
+
+    <button type="submit" style="
+        padding:10px;
+        background:#333;
+        color:white;
+        border:none;
+        cursor:pointer;
+        border-radius: 10px 0 10px 0;
+        font-size: medium;
+    ">
+        Add Task
+    </button>
+</form>
+
+{% if tasks %}
+<ul
+    style="list-style:none; padding:0; display:flex; flex-direction:column; gap:12px;">
+
+    {% for task in tasks %}
+    <li style="
+        padding:15px;
+        border:1px solid #ddd;
+        background:#fafafa;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        border-radius: 10px 0 10px 0;
+    ">
+
+        <div>
+            <strong style="font-size:16px;">{{ task.title }}</strong><br>
+            <span style="color:#555;">{{ task.description }}</span><br>
+
+            <span style="font-size:12px;">
+                {% if task.completed %}
+                <span style="color:green; font-size:14px;">✔ Completed</span>
+                {% else %}
+                <span style="color:red; font-size:14px;">✖ Not Completed</span>
+                {% endif %}
+            </span>
+        </div>
+
+        <div>
+            <a href="/delete/{{ task.id }}/" style="
+                padding:6px 10px;
+                cursor:pointer;
+                background-color: #333;
+                color: white;
+                text-decoration: none;
+                border-radius: 10px 0 0 0;
+            ">
+                Delete
+            </a>
+
+            <a href="/update/{{ task.id }}/" style="
+                padding:6px 10px;
+                cursor:pointer;
+                background-color: #d4d4d4;
+                color: #333;
+                text-decoration: none;
+                border-radius: 0 0 10px 0;
+            ">
+                Update
+            </a>
+        </div>
+
+    </li>
+    {% endfor %}
+
+</ul>
+
+{% else %}
+<p style="color:#777;">No tasks available.</p>
+{% endif %}
+
+{% endblock %}

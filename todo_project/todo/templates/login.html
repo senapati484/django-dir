@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form method="post" action="{% url 'login_user' %}" style="
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:30px;
+">
+    <h2 style="color:#333;">Login</h2>
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Username" required
+        style="padding:10px; border:1px solid #ddd; border-radius: 10px 0 10px 0;">
+    <input type="password" name="password" placeholder="Password" required
+        style="padding:10px; border:1px solid #ddd; border-radius: 10px 0 10px 0;">
+    <button type="submit" style="
+        padding:10px;
+        background:#333;
+        color:white;
+        border:none;
+        cursor:pointer;
+        border-radius: 10px 0 10px 0;
+        font-size: medium;
+    ">
+        login
+    </button>
+    <a href="{% url 'register_user' %}" style="text-align:center; color:#555;">Don't have an account? Register</a>
+</form>
+
+{% endblock %}

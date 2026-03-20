@@ -77,6 +77,12 @@
         <nav>
             <a href="{% url 'home' %}">Home</a>
             <a href="{% url 'dj' %}">DJ</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'logout_user' %}">Logout</a>
+            {% else %}
+            <a href="{% url 'login_user' %}">Login</a>
+            <a href="{% url 'register_user' %}">Register</a>
+            {% endif %}
         </nav>
     </header>
 

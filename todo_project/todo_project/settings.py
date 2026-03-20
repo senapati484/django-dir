@@ -116,3 +116,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
+
+# Use the app's custom auth routes for login/logout redirects.
+LOGIN_URL = "login_user"
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "login_user"
